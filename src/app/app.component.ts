@@ -68,12 +68,7 @@ export class AppComponent implements OnInit {
 
     // check if some input change before updating total price
     if ($event) {
-      let subscriptionPlan = this.subscriptionPlans.filter(subs => 
-        { if(subs.durationMonths === this.orderFormGroup?.get('duration')?.value) 
-            return subs; 
-          else return null; 
-        }
-      )
+      let subscriptionPlan = this.subscriptionPlans.filter(subs => subs.durationMonths === this.orderFormGroup?.get('duration')?.value)
 
       totalPriceUpdate = Number(subscriptionPlan[0]?.priceUSDPerGb * this.orderFormGroup?.get('gigabyte')?.value);
     }
