@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
 
   summary: any; // to store the summary of the subscription in real-time
   readAndApproved = false; // terms and conditions checkbox variable
+  loading = false; // to show a progress bar when updating total price
 
   // init Subscription prices array to better filter when summarize selected subscription
   subscriptionPlans = [
@@ -66,6 +67,7 @@ export class AppComponent implements OnInit {
   }
 
   loadRecap ($event = null) {
+    this.loading = true;
     let totalPriceUpdate: number = this.totalPrice;
 
     // check if some input change before updating total price
@@ -96,6 +98,8 @@ export class AppComponent implements OnInit {
       "gigabyte": this.orderFormGroup?.get('gigabyte')?.value ?? 5,
       "upfrontPayment": this.orderFormGroup?.get('upfrontPayment')?.value ?? "no",
     }
+    
+    this.loading = false;
   }
 
   checkedTerms () {
@@ -105,6 +109,9 @@ export class AppComponent implements OnInit {
   }
 
   submit () {
+    
+    this.loading = true;
+
     console.log("this.summary", this.summary);
     console.log("Subscription parameters", this.orderFormGroup?.value);
     console.log("Payment data", this.orderFormGroup1?.value);
