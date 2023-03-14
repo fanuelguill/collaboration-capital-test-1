@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="text-center">
+    <img src="assets/images/logo.png" width="40%" />
+  </div>
+  <div class="form-section py-5">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="body">
+          <div class="">
+            <h2 class="text-center">  Subscription order process for a cloud storage </h2> 
+          </div>
+          <mat-horizontal-stepper [linear] = "isLinear" #stepper>
+            <mat-step [stepControl] = "orderFormGroup">
+              <form [formGroup] = "orderFormGroup">
+                  <ng-template matStepLabel>Select subscription parameters: </ng-template>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Duration</mat-label>
+                        <mat-select formControlName="duration" required (ngModelChange)="loadRecap($event)">
+                          <mat-option *ngFor="let item of durations$" [value]="item">
+                            {{ item }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Amount of gigabytes</mat-label>
+                        <mat-select formControlName="gigabyte" required (ngModelChange)="loadRecap($event)">
+                          <mat-option *ngFor="let item of gigabytes$" [value]="item">
+                            {{ item }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Upfront payment</mat-label>
+                        <mat-select formControlName="upfrontPayment" required (ngModelChange)="loadRecap($event)">
+                          <mat-option *ngFor="let item of upfrontPayments$" [value]="item">
+                            {{ item }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- display selected subscription -->
+                    <div class="mb-4">
+                      <p> Duration: <strong>{{ summary?.duration }}</strong> </p>
+                      <p> Amount of gigabytes: <strong>{{ summary?.gigabyte }}</strong> </p>
+                      <p> Upfront Payment: <strong>{{ summary?.upfrontPayment }}</strong> </p>
+                      <h5> Total price: {{ summary?.totalPrice }} USD </h5>
+                    </div>
+                  <div>
+                    <button mat-raised-button matStepperNext color="primary" [disabled]="!orderFormGroup.valid">Next</button>
+                  </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl] = "orderFormGroup1">
+              <form [formGroup] = "orderFormGroup1">
+                  <ng-template matStepLabel>Payment data:</ng-template>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field>
+                      <input matInput placeholder = "Credit card number" formControlName = "creditCardNo" required>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Credit card expiration date</mat-label>
+                      <input matInput readonly [matDatepicker]="picker" formControlName="creditCardExp" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <mat-form-field>
+                      <input matInput placeholder = "Credit card security code" formControlName = "creditCardSC" required>
+                    </mat-form-field>
+                  </div>
+                  <!-- display selected subscription -->
+                  <div class="mb-4">
+                    <p> Duration: <strong>{{ summary?.duration }}</strong> </p>
+                    <p> Amount of gigabytes: <strong>{{ summary?.gigabyte }}</strong> </p>
+                    <p> Upfront Payment: <strong>{{ summary?.upfrontPayment }}</strong> </p>
+                    <h5> Total price: {{ summary?.totalPrice }} USD </h5>
+                  </div>
+                  
+                  <div>
+                    <button mat-raised-button matStepperPrevious color="warn">Back</button>
+                    <button mat-raised-button matStepperNext color="primary" [disabled]="!orderFormGroup1.valid">Next</button>
+                  </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl] = "orderFormGroup2">
+              <form [formGroup] = "orderFormGroup2">
+                <ng-template matStepLabel>Confirmation</ng-template>
+
+                <!-- display selected subscription -->
+                <div class="mb-4">
+                  <p> Duration: <strong>{{ summary?.duration }}</strong> </p>
+                  <p> Amount of gigabytes: <strong>{{ summary?.gigabyte }}</strong> </p>
+                  <p> Upfront Payment: <strong>{{ summary?.upfrontPayment }}</strong> </p>
+                  <h5> Total price: {{ summary?.totalPrice }} USD </h5>
+                </div>
+                  
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName ="email" required>
+                  </mat-form-field>
+                </div>
+                <fieldset class="form-group border p-3 mb-3">
+                  <mat-checkbox [checked]="readAndApproved" (ngModelChange)="checkedTerms()">
+                  </mat-checkbox>
+                  <span style="cursor: pointer;">
+                    Terms and conditions
+                  </span>
+                </fieldset>
+                <div>
+                  <button mat-raised-button matStepperPrevious color="warn">Back</button>
+                  <button mat-raised-button matStepperNext color="primary" (submit)="submit()" [disabled]="!(orderFormGroup2.valid && readAndApproved)">Confirmation</button>
+                </div>
+              </form>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
