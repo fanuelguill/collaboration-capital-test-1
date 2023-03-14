@@ -49,17 +49,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.orderFormGroup = this._formBuilder.group({
-        duration: [12, Validators.required],
-        gigabyte: [5, Validators.required],
-        upfrontPayment: ['no', Validators.required],
+      duration: [12, Validators.required],
+      gigabyte: [5, Validators.required],
+      upfrontPayment: ['no', Validators.required],
     });
     this.orderFormGroup1 = this._formBuilder.group({
-        creditCardNo: ['', Validators.required],
-        creditCardExp: ['', Validators.required],
-        creditCardSC: ['', Validators.required],
+      creditCardNo: ['', Validators.required],
+      creditCardExp: ['', Validators.required],
+      creditCardSC: ['', Validators.required],
     });
     this.orderFormGroup2 = this._formBuilder.group({
-        email: ['', Validators.required]
+      email: ['', Validators.required]
     });
     
     // init summary object 
@@ -72,13 +72,17 @@ export class AppComponent implements OnInit {
 
     // check if some input change before updating total price
     if ($event) {
-      let subscriptionPlan = this.subscriptionPlans.filter(subs => { if(subs.durationMonths === this.orderFormGroup?.get('duration')?.value) return subs; else return null; } )
-      console.log("subscriptionPlan", subscriptionPlan);
-      
-      totalPriceUpdate = Number(subscriptionPlan[0]?.priceUSDPerGb * this.orderFormGroup?.get('gigabyte')?.value);
+      let subscriptionPlan = this.subscriptionPlans.filter(subs => 
+        { if(subs.durationMonths === this.orderFormGroup?.get('duration')?.value) 
+            return subs; 
+          else return null; 
+        }
+      )
 
+      totalPriceUpdate = Number(subscriptionPlan[0]?.priceUSDPerGb * this.orderFormGroup?.get('gigabyte')?.value);
     }
 
+    // check current values in the console
     console.log("totalPriceUpdate", totalPriceUpdate);
     console.log("this.totalPrice", this.totalPrice);
     
@@ -88,9 +92,6 @@ export class AppComponent implements OnInit {
     // update this.totalPrice if something change
     if (totalPriceUpdate != this.totalPrice)
       this.totalPrice = totalPriceUpdate;
-
-
-    console.log("readAndApproved", this.readAndApproved);
     
     this.summary = {
       "totalPrice": totalPriceUpdate,
@@ -102,9 +103,8 @@ export class AppComponent implements OnInit {
     this.loading = false;
   }
 
+  // update readAndApproved boolean for Terms and conditions before submitting the form
   checkedTerms () {
-    console.log("ddd");
-    
     this.readAndApproved = !this.readAndApproved;
   }
 
