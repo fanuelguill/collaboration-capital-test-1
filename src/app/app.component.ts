@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup } from "@angular/forms";
-import { FormBuilder } from "@angular/forms";
-import { Validators } from "@angular/forms";
-
+import { UntypedFormGroup, FormBuilder, Validators } from "@angular/forms";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
