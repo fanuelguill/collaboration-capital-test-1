@@ -9,9 +9,9 @@
           <div class="">
             <h2 class="text-center">  Subscription order process for a cloud storage </h2> 
           </div>
-          <mat-horizontal-stepper [linear] = "isLinear" #stepper>
-            <mat-step [stepControl] = "orderFormGroup">
-              <form [formGroup] = "orderFormGroup">
+          <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="orderFormGroup">
+              <form [formGroup]="orderFormGroup">
                   <ng-template matStepLabel>Select subscription parameters: </ng-template>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                       <mat-form-field class="example-full-width" appearance="outline">
@@ -55,12 +55,12 @@
                   </div>
               </form>
             </mat-step>
-            <mat-step [stepControl] = "orderFormGroup1">
-              <form [formGroup] = "orderFormGroup1">
+            <mat-step [stepControl]="orderFormGroup1">
+              <form [formGroup]="orderFormGroup1">
                   <ng-template matStepLabel>Payment data:</ng-template>
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                     <mat-form-field>
-                      <input matInput placeholder = "Credit card number" formControlName = "creditCardNo" required>
+                      <input matInput placeholder="Credit card number" formControlName="creditCardNo" required>
                     </mat-form-field>
                   </div>
 
@@ -74,7 +74,7 @@
                   </div>
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                     <mat-form-field>
-                      <input matInput placeholder = "Credit card security code" formControlName = "creditCardSC" required>
+                      <input matInput placeholder="Credit card security code" formControlName="creditCardSC" required>
                     </mat-form-field>
                   </div>
                   <!-- display selected subscription -->
@@ -91,8 +91,8 @@
                   </div>
               </form>
             </mat-step>
-            <mat-step [stepControl] = "orderFormGroup2">
-              <form [formGroup] = "orderFormGroup2">
+            <mat-step [stepControl]="orderFormGroup2">
+              <form [formGroup]="orderFormGroup2">
                 <ng-template matStepLabel>Confirmation</ng-template>
 
                 <!-- display selected subscription -->
@@ -110,15 +110,15 @@
                   </mat-form-field>
                 </div>
                 <fieldset class="form-group border p-3 mb-3">
-                  <mat-checkbox [checked]="readAndApproved" (ngModelChange)="checkedTerms()">
+                  <mat-checkbox [checked]="readAndApproved" (change)="checkedTerms()">
                   </mat-checkbox>
-                  <span style="cursor: pointer;">
+                  <span style="cursor: pointer;" (click)="checkedTerms()">
                     Terms and conditions
                   </span>
                 </fieldset>
                 <div>
                   <button mat-raised-button matStepperPrevious color="warn">Back</button>
-                  <button mat-raised-button matStepperNext color="primary" (submit)="submit()" [disabled]="!(orderFormGroup2.valid && readAndApproved)">Confirmation</button>
+                  <button mat-raised-button matStepperNext color="primary" (click)="submit()" [disabled]="!(orderFormGroup2.valid && readAndApproved)">Confirmation</button>
                 </div>
               </form>
             </mat-step>

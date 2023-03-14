@@ -11,7 +11,7 @@ import { Validators } from "@angular/forms";
 })
 export class AppComponent implements OnInit {
 
-  isLinear = false; // for mat-horizontal-stepper
+  isLinear = true; // for mat-horizontal-stepper
   title = 'Test 1';
 
   durations$ = [ 3, 6, 12 ];
@@ -106,6 +106,9 @@ export class AppComponent implements OnInit {
 
   submit () {
     console.log("this.summary", this.summary);
+    console.log("Subscription parameters", this.orderFormGroup?.value);
+    console.log("Payment data", this.orderFormGroup1?.value);
+    console.log("Confirmation", this.orderFormGroup2?.value);
     
     // collect our inputs and send them to an API here
     //....
