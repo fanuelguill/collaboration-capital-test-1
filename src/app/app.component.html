@@ -14,8 +14,9 @@
             <mat-step [stepControl]="orderFormGroup">
               <form [formGroup]="orderFormGroup">
                   <ng-template matStepLabel>Select subscription parameters: </ng-template>
+                  <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-                      <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-form-field class="" appearance="outline">
                         <mat-label>Duration</mat-label>
                         <mat-select formControlName="duration" required (ngModelChange)="loadRecap($event)">
                           <mat-option *ngFor="let item of durations$" [value]="item">
@@ -24,6 +25,7 @@
                         </mat-select>
                       </mat-form-field>
                     </div>
+                  </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                       <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Amount of gigabytes</mat-label>
